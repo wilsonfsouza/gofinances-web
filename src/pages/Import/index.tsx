@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import filesize from 'filesize';
@@ -23,19 +23,28 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
-
-    // TODO
-
+    const data = new FormData();
+    if (!uploadedFiles) return;
+    const file = uploadedFiles[0];
+    data.append('file', file.file, file.name);
+    // data.append('file[]', files.map(..)); for multiples files
+    // backend is importing only 1 file at a time - multer (single)
     try {
-      // await api.post('/transactions/import', data);
+      await api.post('/transactions/import', data);
+      history.push('/');
     } catch (err) {
-      // console.log(err.response.error);
+      console.log(err.response.error);
     }
   }
 
   function submitFile(files: File[]): void {
-    // TODO
+    const filesToBeUploaded = files.map(file => ({
+      file,
+      name: file.name,
+      readableSize: filesize(file.size),
+    }));
+
+    setUploadedFiles(filesToBeUploaded);
   }
 
   return (
