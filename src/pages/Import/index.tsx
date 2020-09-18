@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import filesize from 'filesize';
@@ -25,12 +25,10 @@ const Import: React.FC = () => {
   async function handleUpload(): Promise<void> {
     // const data = new FormData();
 
-    // TODO
-
     try {
       // await api.post('/transactions/import', data);
     } catch (err) {
-      // console.log(err.response.error);
+      console.log(err.response.error);
     }
   }
 
