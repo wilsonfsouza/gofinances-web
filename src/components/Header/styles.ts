@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background: #5636d3;
+  background: var(--header-container-color);
   padding: 30px 0;
 
   header {
@@ -17,8 +17,10 @@ export const Container = styled.div<ContainerProps>`
     justify-content: space-between;
 
     nav {
+      display: flex;
       a {
-        color: #fff;
+        color: var(--link-color);
+        opacity: 0.8;
         text-decoration: none;
         font-size: 16px;
         transition: opacity 0.2s;
@@ -29,6 +31,18 @@ export const Container = styled.div<ContainerProps>`
 
         &:hover {
           opacity: 0.6;
+        }
+        &.active {
+          opacity: 1;
+        }
+        &.active::after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 73px;
+          height: 2px;
+          top: 69px;
+          background: var(--bottom-line-color);
         }
       }
     }
